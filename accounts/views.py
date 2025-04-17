@@ -36,5 +36,5 @@ def user_profile(request, id):
 
 class ChangePassword(PasswordChangeView):
     template_name = 'change_password.html'
-    form_class = LoginForm
-    success_url = '/'
+    form_class = ChangePasswordForm
+    success_url = '/account/login/'
