@@ -132,3 +132,10 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'xomurad41@gmail.com'
+EMAIL_HOST_PASSWORD = 'idcuhcyjzbjyjicl'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

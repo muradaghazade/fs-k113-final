@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from core.models import *
 from core.forms import *
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
 
 
 def home(request):
@@ -145,3 +147,12 @@ def create_recipe(request):
         'form': form
     }
     return render(request, 'create_recipe.html', context)
+
+
+class EditStory(UpdateView):
+    model = Story
+    form_class = StoryForm
+    template_name = 'edit-story.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('accounts:user_profile', kwargs = {'id': self.request.user.id})

@@ -10,5 +10,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view() , name='logout'),
     path('user/<int:id>/', user_profile , name='user_profile'),
     path('user/update', EditProfile.as_view(), name='edit-profile'),
-    path('change-password', ChangePassword.as_view(), name='password_change'),
+    path('change-password/', ChangePassword.as_view(), name='password_change'),
+    path('forget-password/', ForgetPassword.as_view(), name='forget_password'),
+    path('password-reset-confirm/<str:uidb64>/<str:token>/', ResetPassword.as_view(), name = 'password-reset-confirm'),
 ]   

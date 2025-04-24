@@ -38,3 +38,14 @@ class ChangePassword(PasswordChangeView):
     template_name = 'change_password.html'
     form_class = ChangePasswordForm
     success_url = '/accounts/login/'
+
+class ForgetPassword(PasswordResetView):
+    template_name = 'forget-password.html'
+    form_class = ForgetPasswordForm
+    success_url = reverse_lazy('accounts:login')
+    email_template_name = 'forget_password_email.html'
+
+class ResetPassword(PasswordResetConfirmView):
+    template_name = 'reset_password.html'
+    form_class = ResetPasswordForm
+    success_url = reverse_lazy('accounts:login')

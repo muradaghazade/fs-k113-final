@@ -1,0 +1,9 @@
+<div class="sidebar-box p-4 about text-center ftco-animate">
+    <h2 class="heading mb-4">About Me</h2>
+    {% if request.user.image %}
+    <img src="{{request.user.image.url}}" class="img-fluid" alt="Colorlib Template">
+    {% endif %}
+    <div class="text pt-4">
+        <p>Hi! My name is <strong>{{request.user.first_name}} {{request.user.last_name}}</strong>, {{request.user.info}}</p>
+    </div>
+</div>
