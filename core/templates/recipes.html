@@ -47,15 +47,28 @@
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
-                            <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
+                            <ul class="pagination">
+                                <li class="page-item">
+                                  {% if page_obj.has_previous %}
+                                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <img src="{% static 'img/pag1.svg' %}" alt="" style="margin-top: -6px;">
+                                  </a>
+                                  {% endif %}
+                                </li>
+                                <h1 class="d-none" id="num_pages">{{ page_obj.paginator.num_pages }}</h1>
+                                <li class="page-item"><a class="page-link num" href="?page={{ page_obj.number }}" style="font-size: 20px; color: #4F4F4F;">{{ page_obj.number }}</a></li>
+                                {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link num" id="from-pagination" href="?page={{ page_obj.next_page_number }}" style="font-size: 20px; color: #4F4F4F;">{{ page_obj.next_page_number }}</a></li>
+                                <li class="page-item"><a class="page-link num" id="last-pagination" href="" style="font-size: 20px; color: #4F4F4F;">3</a></li>
+                                <li class="page-item">
+                                  {% endif %}
+                                  {% if page_obj.has_next %}
+                                  <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <img src="{% static 'img/pag2.svg' %}" alt="" style="margin-top: -6px;">
+                                  </a>
+                                  {% endif %}
+                                </li>
+                              </ul>
                         </div>
                     </div>
                 </div>

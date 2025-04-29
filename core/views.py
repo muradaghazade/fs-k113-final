@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from core.models import *
 from core.forms import *
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView
 from django.urls import reverse_lazy
 
 
@@ -43,30 +43,30 @@ def story_detail(request, id):
     return render(request, 'single.html', context)
 
 
-def stories(request):
-    stories = Story.objects.order_by('-id')
+class StoriesView(ListView):
+    model = Story
+    template_name = 'stories.html'
+    context_object_name = 'stories'
+    paginate_by = 9
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+    
+    def get_queryset(self):
+        tag = self.request.GET.get('tag')
+        cat = self.request.GET.get('cat')
+        search = self.request.GET.get('search')
+        queryset = Story.objects.order_by('-id')
+        if tag:
+            queryset = Story.objects.filter(tag__title=tag).order_by('-id')
+        if cat:
+            queryset = Story.objects.filter(category__title=cat).order_by('-id')
+        if search:
+            queryset = queryset.filter(title__icontains=search)
+        return queryset
 
-
-    tag = request.GET.get('tag')
-    if tag:
-        stories = Story.objects.filter(tag__title=tag).order_by('-id')
-
-
-
-        
-    cat = request.GET.get('cat')
-    if cat:
-        stories = Story.objects.filter(category__title=cat).order_by('-id')
-    search = request.GET.get('search')
-    if search:
-        stories = stories.filter(title__icontains=search)
-    categories = Category.objects.all()
-    context = {
-        'stories': stories,
-        'categories': categories,
-    }
-    return render(request, 'stories.html', context)
 
 def about(request):
     return render(request, 'about.html')
